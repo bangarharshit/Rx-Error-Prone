@@ -22,10 +22,11 @@ import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
 
+/** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
-    name = "com.rx.errorprone.DanglingSubscriptionCheck",
+    name = "DanglingSubscriptionCheck",
     summary = "Observable's subscription should be assigned to a disposable for cleanup",
-    explanation = "Observable's subscription should be assigned to a disposable for cleanup",
+    explanation = "Observable's subscription should be assigned to a disposable for cleanup, otherwise it may lead to a leak",
     category = JDK,
     severity = WARNING
 )

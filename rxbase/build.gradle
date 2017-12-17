@@ -20,6 +20,10 @@ apply plugin: 'net.ltgt.errorprone'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
+test {
+    testLogging.showStandardStreams = true
+}
+
 dependencies {
     compile deps.build.errorProneCore
     compile deps.external.rxjava
