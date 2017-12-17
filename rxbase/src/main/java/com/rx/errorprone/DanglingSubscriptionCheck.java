@@ -16,6 +16,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import java.util.Objects;
 
 import static com.google.errorprone.BugPattern.Category.JDK;
@@ -47,7 +48,7 @@ public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
         @Override
         public boolean matches(ExpressionTree tree, VisitorState state) {
           Type disposableType =
-              Objects.requireNonNull(state.getTypeFromString("io.reactivex.disposables.Disposable"));
+              Objects.requireNonNull(state.getTypeFromString(Disposable.class.getName()));
           Symbol untypedSymbol = ASTHelpers.getSymbol(tree);
           if (!(untypedSymbol instanceof Symbol.MethodSymbol)) {
             return false;

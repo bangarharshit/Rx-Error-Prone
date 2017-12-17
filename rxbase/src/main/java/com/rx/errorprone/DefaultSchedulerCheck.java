@@ -22,7 +22,6 @@ import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
     severity = WARNING
 )
 public class DefaultSchedulerCheck extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
-
   @Override
   public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
     Symbol.MethodSymbol methodSymbol = ASTHelpers.getSymbol(tree);
