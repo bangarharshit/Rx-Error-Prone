@@ -27,7 +27,7 @@ import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 public class OnCreateCheck extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
 
   private static final Matcher<ExpressionTree> ON_CREATE = Matchers.anyOf(
-      Matchers.staticMethod().onClass(Observable.class.getName()).named("create"),
+      Matchers.staticMethod().onClass(Observable.class.getName()).withSignature("<T>create(rx.Observable.OnSubscribe<T>)"),
       Matchers.staticMethod().onClass(Observable.class.getName()).named("unsafeCreate"));
 
   @Override

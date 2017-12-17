@@ -2,9 +2,13 @@ package com.rx.errorprone;
 
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
+import com.google.errorprone.annotations.CompatibleWith;
 import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.matchers.Description;
+import com.google.errorprone.matchers.Matcher;
+import com.google.errorprone.matchers.Matchers;
 import com.sun.source.tree.AnnotationTree;
+import io.reactivex.annotations.SchedulerSupport;
 
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
@@ -20,8 +24,16 @@ import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 )
 public class DefaultSchedulerCheck extends BugChecker implements BugChecker.AnnotationTreeMatcher {
 
+  private static final Matcher<AnnotationTree> SCHEDULER_SUPPORT =
+      Matchers.isType(SchedulerSupport.class.getCanonicalName());
+
   @Override public Description matchAnnotation(AnnotationTree tree, VisitorState state) {
-    return null;
+    System.out.println("coming here");
+    if (SCHEDULER_SUPPORT.matches(tree, state)) {
+      System.out.println(tree.getArguments());
+      return describeMatch(tree);
+    }
+    return Description.NO_MATCH;
   }
 
   @Override public String linkUrl() {
