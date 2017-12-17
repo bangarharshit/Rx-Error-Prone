@@ -27,8 +27,8 @@ public class DefaultSchedulerCheckTest {
     compilationTestHelper.addSourceFile("DefaultSchedulerCheckPositiveCases.java").doTest();
   }
 
-  //@Test
-  //public void testNegativeCases() {
-  //  compilationTestHelper.addSourceFile("CacheCheckNegativeCases.java").doTest();
-  //}
+  @Test
+  public void testNegativeCases() {
+    compilationTestHelper.addSourceFile("DefaultSchedulerCheckNegativeCases.java").doTest();
+  }
 }
