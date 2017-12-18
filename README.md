@@ -36,6 +36,11 @@ Check Dan Lew's [talk](https://youtu.be/QdmkXL7XikQ?t=19m21s) on the same.
 These operators constructs an Observable in an unsafe manner, that is, unsubscription and backpressure handling 
 is the responsibility of the OnSubscribe implementation.
 
+### SubscriptionInConstructorCheck
+Subscription in constructor leads to unsafe object creation and is similar to starting a thread in constructor.
+Check the [safe construction technique article](https://www.ibm.com/developerworks/library/j-jtp0618/index.html) 
+for more details.
+
 Use any of the other overloaded `create` methods or `just/fromCallable` any other generator.
 
 ## Rxlint
@@ -45,6 +50,5 @@ Use any of the other overloaded `create` methods or `just/fromCallable` any othe
 2. It is a separate tool and not the part of your build tool chain. 
 
 Error prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since intellij flags all the lint/error-prone errors, so it is fail earlier.
-
 
  
