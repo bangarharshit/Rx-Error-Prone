@@ -5,14 +5,9 @@ import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
-import com.google.errorprone.matchers.Matchers;
+import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
@@ -26,14 +21,7 @@ import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 )
 public class CacheCheck extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
 
-  public static final Matcher<ExpressionTree> CACHE = Matchers.anyOf(
-      Matchers.instanceMethod().onExactClass(rx.Observable.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(Observable.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(Single.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(rx.Single.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(Completable.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(Maybe.class.getName()).named("cache"),
-      Matchers.instanceMethod().onExactClass(Flowable.class.getName()).named("cache"));
+  public static final Matcher<ExpressionTree> CACHE = MatcherUtils.cache();
 
   @Override
   public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {

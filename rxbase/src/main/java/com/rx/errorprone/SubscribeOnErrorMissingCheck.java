@@ -5,16 +5,11 @@ import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
-import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.util.ASTHelpers;
+import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.tools.javac.code.Type;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import java.util.Objects;
@@ -37,12 +32,7 @@ import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 public class SubscribeOnErrorMissingCheck extends BugChecker implements
     BugChecker.MethodInvocationTreeMatcher {
 
-  private static final Matcher<ExpressionTree> ON_SUBSCRIBE = Matchers.anyOf(
-      Matchers.instanceMethod().onExactClass(Observable.class.getName()).named("subscribe"),
-      Matchers.instanceMethod().onExactClass(Single.class.getName()).named("subscribe"),
-      Matchers.instanceMethod().onExactClass(Completable.class.getName()).named("subscribe"),
-      Matchers.instanceMethod().onExactClass(Maybe.class.getName()).named("subscribe"),
-      Matchers.instanceMethod().onExactClass(Flowable.class.getName()).named("subscribe"));
+  private static final Matcher<ExpressionTree> ON_SUBSCRIBE = MatcherUtils.subscribeForRx2();
 
   @Override
   public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {

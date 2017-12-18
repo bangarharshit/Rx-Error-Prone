@@ -7,21 +7,19 @@ import com.google.errorprone.bugpatterns.AbstractReturnValueIgnored;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.util.ASTHelpers;
+import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.tools.javac.code.Symbol;
 import com.sun.tools.javac.code.Type;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.Objects;
 
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
+import static com.rx.errorprone.utils.MatcherUtils.RX2_CLASSES;
+import static com.rx.errorprone.utils.MatcherUtils.generateMatcherForSameMethodAndMultipleClasses;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
@@ -33,12 +31,9 @@ import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
 )
 public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
 
-  private static final Matcher<ExpressionTree> ON_SUBSCRIBE = Matchers.anyOf(
-      Matchers.instanceMethod().onExactClass(Observable.class.getName()).named("subscribeWith"),
-      Matchers.instanceMethod().onExactClass(Single.class.getName()).named("subscribeWith"),
-      Matchers.instanceMethod().onExactClass(Completable.class.getName()).named("subscribeWith"),
-      Matchers.instanceMethod().onExactClass(Maybe.class.getName()).named("subscribeWith"),
-      Matchers.instanceMethod().onExactClass(Flowable.class.getName()).named("subscribeWith"));
+
+  private static final Matcher<ExpressionTree> ON_SUBSCRIBE
+      = MatcherUtils.subscribeWithForRx2();
 
   // Check for return type Disposable.
   // It is not able to detect correct type in subscribeWith so ON_SUBSCRIBE matcher is combined.
