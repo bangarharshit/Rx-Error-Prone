@@ -11,7 +11,7 @@ Every observable can report errors. Not implementing onError will throw an excep
 If a subscriber doesn't handle the error and the Observable emits an error, 
 it is wrapped into an OnErrorNotImplementedException and routed to the RxJavaPlugins.onError handler.
 
-Another advantage of implementing `onError` is a better stack-trace. Check this blog for details.
+Another advantage of implementing `onError` is a better stack-trace. You can include tags to enrich the trace.
 
 ### DefaultSchedulerCheck
 Operators like `delay` or `interval` runs on `Schedulers.computation()` by default. It can be extremely confusing
@@ -37,5 +37,14 @@ These operators constructs an Observable in an unsafe manner, that is, unsubscri
 is the responsibility of the OnSubscribe implementation.
 
 Use any of the other overloaded `create` methods or `just/fromCallable` any other generator.
+
+## Rxlint
+[Rxlint](https://bitbucket.org/littlerobots/rxlint) is a great tool but has a few limitations:
+
+1. It is specific to android.
+2. It is a separate tool and not the part of your build tool chain. 
+
+Error prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since intellij flags all the lint/error-prone errors, so it is fail earlier.
+
 
  
