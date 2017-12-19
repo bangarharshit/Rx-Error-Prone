@@ -3,7 +3,7 @@
 It is a set of checks for RxJava code. Currently, there are following checks:
 
 ### SubscribeOnErrorMissingCheck
-Check if subscriber is handling the `onError()` callback. 
+Check if the subscriber is handling the `onError()` callback. 
 
 Every observable can report errors. Not implementing onError will throw an exception at runtime,
  which can be hard to debug when the error is thrown on a Scheduler that is not the invoking thread.
@@ -14,7 +14,7 @@ it is wrapped into an OnErrorNotImplementedException and routed to the RxJavaPlu
 Another advantage of implementing `onError` is a better stack-trace. You can include tags to enrich the trace.
 
 ### DefaultSchedulerCheck
-Operators like `delay` or `interval` runs on `Schedulers.computation()` by default. It can be extremely confusing
+Operators like `delay` or `interval` run on `Schedulers.computation()` by default. It can be extremely confusing
 for the scenarios like - `someObservable.observeOn(AndroidSchedulers.MainThread()).interval(2, TimeUnit.Seconds)`
 which will emit the value on `computation` and not the `main` thread like one might think.
 
@@ -33,11 +33,11 @@ Check Dan Lew's [talk](https://youtu.be/QdmkXL7XikQ?t=19m21s) on the same.
 
 ### OnCreateCheck (for Rx1)
 `<T>Observable.create(rx.Observable.OnSubscribe<T>)` and `unSafeCreate` doesn't handle backpressure.
-These operators constructs an Observable in an unsafe manner, that is, unsubscription and backpressure handling 
+These operators construct an Observable in an unsafe manner, that is, unsubscription and backpressure handling 
 is the responsibility of the OnSubscribe implementation.
 
 ### SubscriptionInConstructorCheck
-Subscription in constructor leads to unsafe object creation and is similar to starting a thread in constructor.
+Subscription in constructor leads to unsafe object creation and is similar to starting a thread in the constructor.
 Check the [safe construction technique article](https://www.ibm.com/developerworks/library/j-jtp0618/index.html) 
 for more details.
 
@@ -46,9 +46,9 @@ Use any of the other overloaded `create` methods or `just/fromCallable` any othe
 ## Rxlint
 [Rxlint](https://bitbucket.org/littlerobots/rxlint) is a great tool but has a few limitations:
 
-1. It is specific to android.
+1. It is specific to Android.
 2. It is a separate tool and not the part of your build tool chain. 
 
-Error prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since intellij flags all the lint/error-prone errors, so it is fail earlier.
+Error-prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since IntelliJ flags all the lint/error-prone errors, so it fails earlier.
 
  
