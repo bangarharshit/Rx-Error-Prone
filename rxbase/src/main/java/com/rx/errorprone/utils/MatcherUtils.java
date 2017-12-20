@@ -1,7 +1,6 @@
 package com.rx.errorprone.utils;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
@@ -15,6 +14,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MatcherUtils {
@@ -22,7 +22,8 @@ public class MatcherUtils {
     throw new AssertionError("Instance not possible");
   }
 
-  public static final String  CACHE = "cache";
+  private static final String  CACHE = "cache";
+  private static final String COMPOSE = "compose";
   public static final ImmutableList<Class> RX2_CLASSES = ImmutableList.of(
       Observable.class,
       Single.class,
@@ -30,7 +31,7 @@ public class MatcherUtils {
       Maybe.class,
       Flowable.class);
 
-  public static final ImmutableList<Class> RX_CLASSES = ImmutableList.of(
+  private static final ImmutableList<Class> RX_CLASSES = ImmutableList.of(
       rx.Observable.class,
       rx.Single.class,
       rx.Completable.class,
@@ -40,8 +41,8 @@ public class MatcherUtils {
       Maybe.class,
       Flowable.class);
 
-  public static final String SUBSCRIBE = "subscribe";
-  public static final String SUBSCRIBE_WITH = "subscribeWith";
+  private static final String SUBSCRIBE = "subscribe";
+  private static final String SUBSCRIBE_WITH = "subscribeWith";
 
   public static Matcher<ExpressionTree> generateMatcherForSameMethodAndMultipleClasses(
       List<Class> classes, String method) {
@@ -62,6 +63,10 @@ public class MatcherUtils {
 
   public static Matcher<ExpressionTree> cache() {
     return generateMatcherForSameMethodAndMultipleClasses(RX_CLASSES, CACHE);
+  }
+
+  public static Matcher<ExpressionTree> composeFor(Class<?>... classes) {
+    return generateMatcherForSameMethodAndMultipleClasses(Arrays.asList(classes), COMPOSE);
   }
 
   public static boolean isEnclosingMethodConstructor(VisitorState state) {
