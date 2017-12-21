@@ -18,17 +18,22 @@ public class SubscriptionInConstructorCheckTest {
 
   @Before
   public void setup() {
-    compilationTestHelper = CompilationTestHelper.newInstance(SubscriptionInConstructorCheck.class, getClass());
+    compilationTestHelper =
+        CompilationTestHelper.newInstance(SubscriptionInConstructorCheck.class, getClass());
     compilationTestHelper.setArgs(Arrays.asList("-d", temporaryFolder.getRoot().getAbsolutePath()));
   }
 
   @Test
   public void testPositiveCases() {
-    compilationTestHelper.addSourceFile("SubscriptionInConstructorCheckPositiveCases.java").doTest();
+    compilationTestHelper
+        .addSourceFile("SubscriptionInConstructorCheckPositiveCases.java")
+        .doTest();
   }
 
   @Test
   public void testNegativeCases() {
-    compilationTestHelper.addSourceFile("SubscriptionInConstructorCheckNegativeCases.java").doTest();
+    compilationTestHelper
+        .addSourceFile("SubscriptionInConstructorCheckNegativeCases.java")
+        .doTest();
   }
 }

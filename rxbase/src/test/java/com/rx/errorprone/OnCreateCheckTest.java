@@ -3,7 +3,6 @@ package com.rx.errorprone;
 import com.google.errorprone.CompilationTestHelper;
 import com.rx.errorprone.rx1.OnCreateCheck;
 import java.util.Arrays;
-import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

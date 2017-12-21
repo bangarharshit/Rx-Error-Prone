@@ -16,23 +16,21 @@ import org.reactivestreams.Subscription;
 public class DanglingSubscriptionNegativeCases {
 
   public void testSubscribeObservableWithObserver() {
-    Observable.just(1).subscribe(new Observer<Integer>() {
-      @Override public void onSubscribe(Disposable d) {
+    Observable.just(1)
+        .subscribe(
+            new Observer<Integer>() {
+              @Override
+              public void onSubscribe(Disposable d) {}
 
-      }
+              @Override
+              public void onNext(Integer integer) {}
 
-      @Override public void onNext(Integer integer) {
+              @Override
+              public void onError(Throwable e) {}
 
-      }
-
-      @Override public void onError(Throwable e) {
-
-      }
-
-      @Override public void onComplete() {
-
-      }
-    });
+              @Override
+              public void onComplete() {}
+            });
   }
 
   public void testJustObservable() {
@@ -40,75 +38,68 @@ public class DanglingSubscriptionNegativeCases {
   }
 
   public void testSubscribeSingleWithObserver() {
-    Single.just(1).subscribe(new SingleObserver<Integer>() {
-      @Override public void onSubscribe(Disposable d) {
+    Single.just(1)
+        .subscribe(
+            new SingleObserver<Integer>() {
+              @Override
+              public void onSubscribe(Disposable d) {}
 
-      }
+              @Override
+              public void onSuccess(Integer integer) {}
 
-      @Override public void onSuccess(Integer integer) {
-
-      }
-
-      @Override public void onError(Throwable e) {
-
-      }
-    });
+              @Override
+              public void onError(Throwable e) {}
+            });
   }
 
   public void testSubscribeCompletableWithObserver() {
-    Completable.complete().subscribe(new CompletableObserver() {
-      @Override public void onSubscribe(Disposable d) {
+    Completable.complete()
+        .subscribe(
+            new CompletableObserver() {
+              @Override
+              public void onSubscribe(Disposable d) {}
 
-      }
+              @Override
+              public void onComplete() {}
 
-      @Override public void onComplete() {
-
-      }
-
-      @Override public void onError(Throwable e) {
-
-      }
-    });
+              @Override
+              public void onError(Throwable e) {}
+            });
   }
 
   public void testSubscribeMaybeWithObserver() {
-    Maybe.just(1).subscribe(new MaybeObserver<Integer>() {
-      @Override public void onSubscribe(Disposable d) {
+    Maybe.just(1)
+        .subscribe(
+            new MaybeObserver<Integer>() {
+              @Override
+              public void onSubscribe(Disposable d) {}
 
-      }
+              @Override
+              public void onSuccess(Integer integer) {}
 
-      @Override public void onSuccess(Integer integer) {
+              @Override
+              public void onError(Throwable e) {}
 
-      }
-
-      @Override public void onError(Throwable e) {
-
-      }
-
-      @Override public void onComplete() {
-
-      }
-    });
+              @Override
+              public void onComplete() {}
+            });
   }
 
   public void testSubscribeFlowableWithSubscriber() {
-    Flowable.just(1).subscribe(new FlowableSubscriber<Integer>() {
-      @Override public void onSubscribe(Subscription s) {
+    Flowable.just(1)
+        .subscribe(
+            new FlowableSubscriber<Integer>() {
+              @Override
+              public void onSubscribe(Subscription s) {}
 
-      }
+              @Override
+              public void onNext(Integer integer) {}
 
-      @Override public void onNext(Integer integer) {
+              @Override
+              public void onError(Throwable t) {}
 
-      }
-
-      @Override public void onError(Throwable t) {
-
-      }
-
-      @Override public void onComplete() {
-
-      }
-    });
+              @Override
+              public void onComplete() {}
+            });
   }
-
 }

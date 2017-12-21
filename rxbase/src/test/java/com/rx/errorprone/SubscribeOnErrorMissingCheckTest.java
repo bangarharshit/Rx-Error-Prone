@@ -1,7 +1,6 @@
 package com.rx.errorprone;
 
 import com.google.errorprone.CompilationTestHelper;
-import com.rx.errorprone.rx1.OnCreateCheck;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,7 +17,8 @@ public class SubscribeOnErrorMissingCheckTest {
 
   @Before
   public void setup() {
-    compilationTestHelper = CompilationTestHelper.newInstance(SubscribeOnErrorMissingCheck.class, getClass());
+    compilationTestHelper =
+        CompilationTestHelper.newInstance(SubscribeOnErrorMissingCheck.class, getClass());
     compilationTestHelper.setArgs(Arrays.asList("-d", temporaryFolder.getRoot().getAbsolutePath()));
   }
 

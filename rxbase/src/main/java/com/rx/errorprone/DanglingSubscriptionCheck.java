@@ -1,5 +1,9 @@
 package com.rx.errorprone;
 
+import static com.google.errorprone.BugPattern.Category.JDK;
+import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
+import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
+
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -15,50 +19,46 @@ import com.sun.tools.javac.code.Type;
 import io.reactivex.disposables.Disposable;
 import java.util.Objects;
 
-import static com.google.errorprone.BugPattern.Category.JDK;
-import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
-import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
-import static com.rx.errorprone.utils.MatcherUtils.RX2_CLASSES;
-import static com.rx.errorprone.utils.MatcherUtils.generateMatcherForSameMethodAndMultipleClasses;
-
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
-    name = "DanglingSubscriptionCheck",
-    summary = "Observable's subscription should be assigned to a disposable for cleanup",
-    explanation = "Observable's subscription should be assigned to a disposable for cleanup, otherwise it may lead to a leak",
-    category = JDK,
-    severity = WARNING
+  name = "DanglingSubscriptionCheck",
+  summary = "Observable's subscription should be assigned to a disposable for cleanup",
+  explanation =
+      "Observable's subscription should be assigned to a disposable for cleanup, otherwise it may lead to a leak",
+  category = JDK,
+  severity = WARNING
 )
 public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
 
-
-  private static final Matcher<ExpressionTree> ON_SUBSCRIBE
-      = MatcherUtils.subscribeWithForRx2();
+  private static final Matcher<ExpressionTree> ON_SUBSCRIBE = MatcherUtils.subscribeWithForRx2();
 
   // Check for return type Disposable.
   // It is not able to detect correct type in subscribeWith so ON_SUBSCRIBE matcher is combined.
   // public final <E extends Observer<? super T>> E subscribeWith(E observer)
   private static final Matcher<ExpressionTree> MATCHER =
-      Matchers.anyOf(new Matcher<ExpressionTree>() {
-        @Override
-        public boolean matches(ExpressionTree tree, VisitorState state) {
-          Type disposableType =
-              Objects.requireNonNull(state.getTypeFromString(Disposable.class.getName()));
-          Symbol untypedSymbol = ASTHelpers.getSymbol(tree);
-          if (!(untypedSymbol instanceof Symbol.MethodSymbol)) {
-            return false;
-          }
-          Symbol.MethodSymbol sym = (Symbol.MethodSymbol) untypedSymbol;
-          if (hasAnnotation(sym, CanIgnoreReturnValue.class, state)) {
-            return false;
-          }
-          Type returnType = sym.getReturnType();
-          return ASTHelpers.isSubtype(
-              ASTHelpers.getUpperBound(returnType, state.getTypes()), disposableType, state);
-        }
-      }, ON_SUBSCRIBE);
+      Matchers.anyOf(
+          new Matcher<ExpressionTree>() {
+            @Override
+            public boolean matches(ExpressionTree tree, VisitorState state) {
+              Type disposableType =
+                  Objects.requireNonNull(state.getTypeFromString(Disposable.class.getName()));
+              Symbol untypedSymbol = ASTHelpers.getSymbol(tree);
+              if (!(untypedSymbol instanceof Symbol.MethodSymbol)) {
+                return false;
+              }
+              Symbol.MethodSymbol sym = (Symbol.MethodSymbol) untypedSymbol;
+              if (hasAnnotation(sym, CanIgnoreReturnValue.class, state)) {
+                return false;
+              }
+              Type returnType = sym.getReturnType();
+              return ASTHelpers.isSubtype(
+                  ASTHelpers.getUpperBound(returnType, state.getTypes()), disposableType, state);
+            }
+          },
+          ON_SUBSCRIBE);
 
-  @Override public Matcher<? super MethodInvocationTree> specializedMatcher() {
+  @Override
+  public Matcher<? super MethodInvocationTree> specializedMatcher() {
     return MATCHER;
   }
 }

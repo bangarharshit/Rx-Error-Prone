@@ -13,8 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+plugins {
+  id "com.github.sherter.google-java-format" version "0.6"
+}
 
 apply from: 'gradle/dependencies.gradle'
+
+repositories {
+  // to get the google-java-format jar and dependencies
+  jcenter()
+}
 
 subprojects {
   buildscript {
@@ -31,4 +39,9 @@ subprojects {
     maven { url deps.build.gradlePluginsUrl }
     maven { url "https://maven.google.com" }
   }
+}
+
+
+googleJavaFormat {
+  toolVersion = "1.4"
 }

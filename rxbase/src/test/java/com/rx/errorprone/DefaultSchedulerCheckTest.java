@@ -18,7 +18,8 @@ public class DefaultSchedulerCheckTest {
 
   @Before
   public void setup() {
-    compilationTestHelper = CompilationTestHelper.newInstance(DefaultSchedulerCheck.class, getClass());
+    compilationTestHelper =
+        CompilationTestHelper.newInstance(DefaultSchedulerCheck.class, getClass());
     compilationTestHelper.setArgs(Arrays.asList("-d", temporaryFolder.getRoot().getAbsolutePath()));
   }
 

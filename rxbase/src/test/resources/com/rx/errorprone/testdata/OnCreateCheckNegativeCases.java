@@ -2,8 +2,6 @@ package com.rx.errorprone.testdata;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
-import rx.functions.Func0;
 import rx.observables.SyncOnSubscribe;
 
 public class OnCreateCheckNegativeCases {
@@ -13,14 +11,17 @@ public class OnCreateCheckNegativeCases {
   }
 
   public void testObservableOnCreateWithoutOnSubscribe() {
-    Observable.create(new SyncOnSubscribe<String, String>() {
-      @Override protected String generateState() {
-        return null;
-      }
+    Observable.create(
+        new SyncOnSubscribe<String, String>() {
+          @Override
+          protected String generateState() {
+            return null;
+          }
 
-      @Override protected String next(String state, Observer<? super String> observer) {
-        return null;
-      }
-    });
+          @Override
+          protected String next(String state, Observer<? super String> observer) {
+            return null;
+          }
+        });
   }
 }

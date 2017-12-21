@@ -20,6 +20,7 @@ public class SubscriptionInConstructorCheckNegativeCases {
 
   public static class ABC {
     Observable observable;
+
     public ABC() {
       observable = Observable.just(1);
     }
@@ -34,6 +35,4 @@ public class SubscriptionInConstructorCheckNegativeCases {
       return abc;
     }
   }
-
-
 }

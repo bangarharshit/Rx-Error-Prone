@@ -18,9 +18,9 @@ public class DanglingSubscriptionCheckTest {
 
   @Before
   public void setup() {
-    compilationTestHelper = CompilationTestHelper.newInstance(DanglingSubscriptionCheck.class, getClass());
+    compilationTestHelper =
+        CompilationTestHelper.newInstance(DanglingSubscriptionCheck.class, getClass());
     compilationTestHelper.setArgs(Arrays.asList("-d", temporaryFolder.getRoot().getAbsolutePath()));
-
   }
 
   @Test

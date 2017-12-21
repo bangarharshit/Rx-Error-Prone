@@ -22,24 +22,22 @@ public class MatcherUtils {
     throw new AssertionError("Instance not possible");
   }
 
-  private static final String  CACHE = "cache";
+  private static final String CACHE = "cache";
   private static final String COMPOSE = "compose";
-  public static final ImmutableList<Class> RX2_CLASSES = ImmutableList.of(
-      Observable.class,
-      Single.class,
-      Completable.class,
-      Maybe.class,
-      Flowable.class);
+  public static final ImmutableList<Class> RX2_CLASSES =
+      ImmutableList.of(
+          Observable.class, Single.class, Completable.class, Maybe.class, Flowable.class);
 
-  private static final ImmutableList<Class> RX_CLASSES = ImmutableList.of(
-      rx.Observable.class,
-      rx.Single.class,
-      rx.Completable.class,
-      Observable.class,
-      Single.class,
-      Completable.class,
-      Maybe.class,
-      Flowable.class);
+  private static final ImmutableList<Class> RX_CLASSES =
+      ImmutableList.of(
+          rx.Observable.class,
+          rx.Single.class,
+          rx.Completable.class,
+          Observable.class,
+          Single.class,
+          Completable.class,
+          Maybe.class,
+          Flowable.class);
 
   private static final String SUBSCRIBE = "subscribe";
   private static final String SUBSCRIBE_WITH = "subscribeWith";

@@ -1,5 +1,8 @@
 package com.rx.errorprone;
 
+import static com.google.errorprone.BugPattern.Category.JDK;
+import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
+
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -14,23 +17,20 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import java.util.Objects;
 
-import static com.google.errorprone.BugPattern.Category.JDK;
-import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
-
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
-    name = "SubscribeOnErrorMissingCheck",
-    summary = "Subscriber is missing onError handling",
-    explanation =
-        "Every observable can report errors. "
-            + "Not implementing onError will throw an exception at runtime "
-            + "which can be hard to debug when the error is thrown on a Scheduler that is not the invoking thread."
-            + "It can also be used for debugging error ",
-    category = JDK,
-    severity = WARNING
+  name = "SubscribeOnErrorMissingCheck",
+  summary = "Subscriber is missing onError handling",
+  explanation =
+      "Every observable can report errors. "
+          + "Not implementing onError will throw an exception at runtime "
+          + "which can be hard to debug when the error is thrown on a Scheduler that is not the invoking thread."
+          + "It can also be used for debugging error ",
+  category = JDK,
+  severity = WARNING
 )
-public class SubscribeOnErrorMissingCheck extends BugChecker implements
-    BugChecker.MethodInvocationTreeMatcher {
+public class SubscribeOnErrorMissingCheck extends BugChecker
+    implements BugChecker.MethodInvocationTreeMatcher {
 
   private static final Matcher<ExpressionTree> ON_SUBSCRIBE = MatcherUtils.subscribeForRx2();
 
@@ -47,7 +47,8 @@ public class SubscribeOnErrorMissingCheck extends BugChecker implements
             Objects.requireNonNull(state.getTypeFromString(Consumer.class.getName()));
         // For completable.
         Type actionType = Objects.requireNonNull(state.getTypeFromString(Action.class.getName()));
-        if (ASTHelpers.isSubtype(argType, consumerType, state) || ASTHelpers.isSubtype(argType, actionType, state)) {
+        if (ASTHelpers.isSubtype(argType, consumerType, state)
+            || ASTHelpers.isSubtype(argType, actionType, state)) {
           return describeMatch(tree);
         }
       }
@@ -55,7 +56,8 @@ public class SubscribeOnErrorMissingCheck extends BugChecker implements
     return Description.NO_MATCH;
   }
 
-  @Override public String linkUrl() {
+  @Override
+  public String linkUrl() {
     return "https://speakerdeck.com/dlew/common-rxjava-mistakes";
   }
 }
