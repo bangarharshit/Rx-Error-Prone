@@ -1,0 +1,23 @@
+plugins {
+    id "net.ltgt.apt" version "0.13"
+    id "net.ltgt.errorprone" version "0.0.13"
+    id "java"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+    compileOnly deps.apt.autoService
+    apt project(path: ":rxbase", configuration: "shadow")
+    compileOnly deps.build.guava
+    compile deps.external.rxjava2
+
+    errorprone deps.build.errorProneCore
+}
+
+tasks.withType(JavaCompile) {
+    if (!name.toLowerCase().contains("test")) {
+        options.compilerArgs += ["-Xep:CacheCheck:ERROR"]
+    }
+}

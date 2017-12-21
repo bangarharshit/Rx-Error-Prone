@@ -1,3 +1,4 @@
 rootProject.name = 'rx'
 include 'rxbase'
+include 'sample'
 
