@@ -17,7 +17,7 @@ import com.sun.source.tree.MethodInvocationTree;
 @AutoService(BugChecker.class)
 @BugPattern(
   name = "CacheCheck",
-  summary = "Don't use cache. Use replay() instead",
+  summary = "Don't use cache. Use replay() instead.",
   category = JDK,
   severity = WARNING
 )

@@ -3,6 +3,7 @@ package com.rx.errorprone;
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 
+import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -13,6 +14,7 @@ import com.sun.tools.javac.code.Symbol;
 import io.reactivex.annotations.SchedulerSupport;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
+@AutoService(BugChecker.class)
 @BugPattern(
   name = "DefaultSchedulerCheck",
   summary = "Using a default scheduler",

@@ -10,14 +10,12 @@ import io.reactivex.observers.DisposableObserver;
 public class DanglingSubscriptionPositiveCases {
 
   public void testSubscribeObservable() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Observable.just(1).subscribe();
   }
 
   public void testSubscribeWithObservable() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Observable.just(1)
         .subscribeWith(
             new DisposableObserver<Integer>() {
@@ -33,26 +31,22 @@ public class DanglingSubscriptionPositiveCases {
   }
 
   public void testSubscribeSingle() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Single.just(1).subscribe();
   }
 
   public void testSubscribeCompletable() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Completable.complete().subscribe();
   }
 
   public void testSubscribeMaybe() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Maybe.just(1).subscribe();
   }
 
   public void testSubscribeFlowable() {
-    // BUG: Diagnostic contains: Observable's subscription should be assigned to a disposable for
-    // cleanup
+    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Flowable.just(1).subscribe();
   }
 }

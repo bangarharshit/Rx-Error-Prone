@@ -4,10 +4,12 @@ import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
 
+import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.bugpatterns.AbstractReturnValueIgnored;
+import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.util.ASTHelpers;
@@ -20,9 +22,10 @@ import io.reactivex.disposables.Disposable;
 import java.util.Objects;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
+@AutoService(BugChecker.class)
 @BugPattern(
   name = "DanglingSubscriptionCheck",
-  summary = "Observable's subscription should be assigned to a disposable for cleanup",
+  summary = "Subscription should be assigned to a disposable.",
   explanation =
       "Observable's subscription should be assigned to a disposable for cleanup, otherwise it may lead to a leak",
   category = JDK,

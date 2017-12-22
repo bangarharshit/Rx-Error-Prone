@@ -3,6 +3,7 @@ package com.rx.errorprone;
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 
+import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -13,9 +14,10 @@ import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
+@AutoService(BugChecker.class)
 @BugPattern(
   name = "SubscriptionInConstructorCheck",
-  summary = "Subscription should not be done in constructor",
+  summary = "Subscription should not be done in constructor.",
   explanation =
       "Constructor is not a lifecycle method and finalizer is not guaranteed to be called. "
           + "Also, starting a new thread from constructor may lead to this leak. ",

@@ -41,7 +41,6 @@ subprojects {
   }
 }
 
-
 googleJavaFormat {
   toolVersion = "1.4"
 }

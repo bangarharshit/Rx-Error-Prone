@@ -11,7 +11,7 @@ public class SubscriptionInConstructorCheckPositiveCases {
 
   public static class ABC {
     public ABC() {
-      // BUG: Diagnostic contains: Subscription should not be done in constructor
+      // BUG: Diagnostic contains: Subscription should not be done in constructor.
       Observable.just(1).subscribe();
     }
   }

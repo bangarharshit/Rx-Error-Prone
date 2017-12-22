@@ -3,6 +3,7 @@ package com.rx.errorprone;
 import static com.google.errorprone.BugPattern.Category.JDK;
 import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 
+import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -18,9 +19,10 @@ import io.reactivex.functions.Consumer;
 import java.util.Objects;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
+@AutoService(BugChecker.class)
 @BugPattern(
   name = "SubscribeOnErrorMissingCheck",
-  summary = "Subscriber is missing onError handling",
+  summary = "Subscriber is missing onError handling.",
   explanation =
       "Every observable can report errors. "
           + "Not implementing onError will throw an exception at runtime "

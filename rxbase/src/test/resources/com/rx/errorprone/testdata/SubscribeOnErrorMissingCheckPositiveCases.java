@@ -11,12 +11,12 @@ import io.reactivex.functions.Consumer;
 public class SubscribeOnErrorMissingCheckPositiveCases {
 
   public void testSubscribeNoArgs() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Observable.just(1).subscribe();
   }
 
   public void testSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Observable.just(1)
         .subscribe(
             new Consumer<Integer>() {
@@ -26,7 +26,7 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testSingleSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Single.just(1)
         .subscribe(
             new Consumer<Integer>() {
@@ -36,7 +36,7 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testMaybeSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Maybe.just(1)
         .subscribe(
             new Consumer<Integer>() {
@@ -46,7 +46,7 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testCompletableSubscribeWithAction() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Completable.complete()
         .subscribe(
             new Action() {
@@ -56,7 +56,7 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testFlowableSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling
+    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Flowable.just(1)
         .subscribe(
             new Consumer<Integer>() {
