@@ -7,7 +7,7 @@ public class OnCreateCheckPositiveCases {
 
   public void testObservableCreate() {
     // BUG: Diagnostic contains: Prefer backpressure compliant operators to onCreate without
-    // backpressure
+    // backpressure.
     Observable.create(
         new Observable.OnSubscribe<String>() {
           @Override
@@ -19,7 +19,7 @@ public class OnCreateCheckPositiveCases {
 
   public void testObservableUnSafeCreate() {
     // BUG: Diagnostic contains: Prefer backpressure compliant operators to onCreate without
-    // backpressure
+    // backpressure.
     Observable.unsafeCreate(
         new Observable.OnSubscribe<String>() {
           @Override

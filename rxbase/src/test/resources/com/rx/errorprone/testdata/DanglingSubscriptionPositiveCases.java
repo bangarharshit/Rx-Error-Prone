@@ -15,8 +15,8 @@ public class DanglingSubscriptionPositiveCases {
   }
 
   public void testSubscribeWithObservable() {
-    // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
     Observable.just(1)
+        // BUG: Diagnostic contains: Subscription should be assigned to a disposable.
         .subscribeWith(
             new DisposableObserver<Integer>() {
               @Override

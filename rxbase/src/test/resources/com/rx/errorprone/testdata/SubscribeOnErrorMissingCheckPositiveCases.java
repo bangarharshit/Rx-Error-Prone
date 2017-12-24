@@ -16,8 +16,8 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Observable.just(1)
+        // BUG: Diagnostic contains: Subscriber is missing onError handling.
         .subscribe(
             new Consumer<Integer>() {
               @Override
@@ -26,8 +26,8 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testSingleSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Single.just(1)
+        // BUG: Diagnostic contains: Subscriber is missing onError handling.
         .subscribe(
             new Consumer<Integer>() {
               @Override
@@ -36,8 +36,8 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testMaybeSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Maybe.just(1)
+        // BUG: Diagnostic contains: Subscriber is missing onError handling.
         .subscribe(
             new Consumer<Integer>() {
               @Override
@@ -46,8 +46,8 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testCompletableSubscribeWithAction() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Completable.complete()
+        // BUG: Diagnostic contains: Subscriber is missing onError handling.
         .subscribe(
             new Action() {
               @Override
@@ -56,8 +56,8 @@ public class SubscribeOnErrorMissingCheckPositiveCases {
   }
 
   public void testFlowableSubscribeWithConsumer() {
-    // BUG: Diagnostic contains: Subscriber is missing onError handling.
     Flowable.just(1)
+        // BUG: Diagnostic contains: Subscriber is missing onError handling.
         .subscribe(
             new Consumer<Integer>() {
               @Override

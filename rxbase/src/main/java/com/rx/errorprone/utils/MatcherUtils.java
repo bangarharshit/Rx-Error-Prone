@@ -24,7 +24,7 @@ public class MatcherUtils {
 
   private static final String CACHE = "cache";
   private static final String COMPOSE = "compose";
-  public static final ImmutableList<Class> RX2_CLASSES =
+  private static final ImmutableList<Class> RX2_CLASSES =
       ImmutableList.of(
           Observable.class, Single.class, Completable.class, Maybe.class, Flowable.class);
 
@@ -42,7 +42,7 @@ public class MatcherUtils {
   private static final String SUBSCRIBE = "subscribe";
   private static final String SUBSCRIBE_WITH = "subscribeWith";
 
-  public static Matcher<ExpressionTree> generateMatcherForSameMethodAndMultipleClasses(
+  private static Matcher<ExpressionTree> generateMatcherForSameMethodAndMultipleClasses(
       List<Class> classes, String method) {
     List<MethodMatchers.MethodNameMatcher> matchers = new ArrayList<>();
     for (Class aClass : classes) {

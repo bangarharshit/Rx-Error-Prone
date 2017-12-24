@@ -40,6 +40,7 @@ public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
   // public final <E extends Observer<? super T>> E subscribeWith(E observer)
   private static final Matcher<ExpressionTree> MATCHER =
       Matchers.anyOf(
+          ON_SUBSCRIBE,
           new Matcher<ExpressionTree>() {
             @Override
             public boolean matches(ExpressionTree tree, VisitorState state) {
@@ -57,11 +58,15 @@ public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
               return ASTHelpers.isSubtype(
                   ASTHelpers.getUpperBound(returnType, state.getTypes()), disposableType, state);
             }
-          },
-          ON_SUBSCRIBE);
+          });
 
   @Override
   public Matcher<? super MethodInvocationTree> specializedMatcher() {
     return MATCHER;
+  }
+
+  @Override
+  public String linkUrl() {
+    return "https://bitbucket.org/littlerobots/rxlint";
   }
 }

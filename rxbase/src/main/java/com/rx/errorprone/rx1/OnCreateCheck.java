@@ -16,7 +16,7 @@ import rx.Observable;
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
   name = "OnCreateCheck",
-  summary = "Prefer backpressure compliant operators to onCreate without backpressure",
+  summary = "Prefer backpressure compliant operators to onCreate without backpressure.",
   explanation =
       "Don't call observable's onCreate without backpressure. Use backpressure compliant operators instead. "
           + "It has been deprecated in rx 1.3 but the check is for older rx versions",
