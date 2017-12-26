@@ -8,14 +8,13 @@ import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import com.google.errorprone.bugpatterns.AbstractReturnValueIgnored;
 import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.util.ASTHelpers;
+import com.rx.errorprone.utils.AbstractReturnValueIgnored;
 import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
-import com.sun.source.tree.MethodInvocationTree;
 import com.sun.tools.javac.code.Symbol;
 import com.sun.tools.javac.code.Type;
 import io.reactivex.disposables.Disposable;
@@ -61,7 +60,7 @@ public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
           });
 
   @Override
-  public Matcher<? super MethodInvocationTree> specializedMatcher() {
+  public Matcher<? super ExpressionTree> specializedMatcher() {
     return MATCHER;
   }
 
