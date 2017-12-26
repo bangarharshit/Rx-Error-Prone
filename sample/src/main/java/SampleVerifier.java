@@ -1,9 +1,9 @@
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 
 public class SampleVerifier {
   public static void main(String[] args) {
-    Disposable disposable = Observable.interval(1, TimeUnit.SECONDS).cache().subscribe();
+    Observable observable = Observable.interval(2, TimeUnit.SECONDS, Schedulers.io());
   }
 }

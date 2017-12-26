@@ -24,8 +24,8 @@ configurations.all {
 dependencies {
     compileOnly deps.apt.autoValue
     compileOnly deps.apt.autoService
-    compile group: 'io.reactivex', name: 'rxjava', version: '1.3.4'
-    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.7'
+    testCompile group: 'io.reactivex', name: 'rxjava', version: '1.3.4'
+    testCompile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.7'
 
     compileOnly deps.build.errorProneCheckApi
     errorprone "com.google.errorprone:error_prone_core:2.1.1"

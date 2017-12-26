@@ -23,7 +23,7 @@ import com.sun.source.tree.MethodInvocationTree;
 )
 public class CacheCheck extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
 
-  public static final Matcher<ExpressionTree> CACHE = MatcherUtils.cache();
+  private static final Matcher<ExpressionTree> CACHE = MatcherUtils.cache();
 
   @Override
   public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {

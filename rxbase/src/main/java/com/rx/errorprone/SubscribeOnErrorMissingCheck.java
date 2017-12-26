@@ -14,8 +14,6 @@ import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.tools.javac.code.Type;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import java.util.Objects;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
@@ -46,9 +44,9 @@ public class SubscribeOnErrorMissingCheck extends BugChecker
       } else {
         Type argType = ASTHelpers.getType(tree.getArguments().get(0));
         Type consumerType =
-            Objects.requireNonNull(state.getTypeFromString(Consumer.class.getName()));
+            Objects.requireNonNull(state.getTypeFromString("io.reactivex.functions.Consumer"));
         // For completable.
-        Type actionType = Objects.requireNonNull(state.getTypeFromString(Action.class.getName()));
+        Type actionType = Objects.requireNonNull(state.getTypeFromString("io.reactivex.functions.Action"));
         if (ASTHelpers.isSubtype(argType, consumerType, state)
             || ASTHelpers.isSubtype(argType, actionType, state)) {
           return describeMatch(tree);

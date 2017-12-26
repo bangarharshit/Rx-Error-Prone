@@ -1,9 +1,5 @@
 package com.rx.errorprone;
 
-import static com.google.errorprone.BugPattern.Category.JDK;
-import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
-import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
-
 import com.google.auto.service.AutoService;
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
@@ -17,8 +13,11 @@ import com.rx.errorprone.utils.MatcherUtils;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.tools.javac.code.Symbol;
 import com.sun.tools.javac.code.Type;
-import io.reactivex.disposables.Disposable;
 import java.util.Objects;
+
+import static com.google.errorprone.BugPattern.Category.JDK;
+import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
+import static com.google.errorprone.util.ASTHelpers.hasAnnotation;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @AutoService(BugChecker.class)
@@ -44,7 +43,7 @@ public class DanglingSubscriptionCheck extends AbstractReturnValueIgnored {
             @Override
             public boolean matches(ExpressionTree tree, VisitorState state) {
               Type disposableType =
-                  Objects.requireNonNull(state.getTypeFromString(Disposable.class.getName()));
+                  Objects.requireNonNull(state.getTypeFromString("io.reactivex.disposables.Disposable"));
               Symbol untypedSymbol = ASTHelpers.getSymbol(tree);
               if (!(untypedSymbol instanceof Symbol.MethodSymbol)) {
                 return false;

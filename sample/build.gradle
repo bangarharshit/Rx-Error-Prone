@@ -18,8 +18,5 @@ dependencies {
 }
 
 tasks.withType(JavaCompile) {
-    // Remove the if condition for adding the check on test.
-    if (!name.toLowerCase().contains("test")) {
-        options.compilerArgs += ["-Xep:CacheCheck:ERROR"]
-    }
+    options.compilerArgs += [ '-Xep:CacheCheck:ERROR']
 }

@@ -10,6 +10,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import org.reactivestreams.Subscription;
 
@@ -101,5 +102,14 @@ public class DanglingSubscriptionNegativeCases {
               @Override
               public void onComplete() {}
             });
+  }
+
+  public void testObservableCreation() {
+    Observable.just(1);
+  }
+
+  public void testCompositeDisposable(Disposable disposable) {
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    compositeDisposable.add(disposable);
   }
 }

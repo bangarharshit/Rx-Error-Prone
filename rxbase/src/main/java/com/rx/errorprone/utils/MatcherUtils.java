@@ -8,13 +8,7 @@ import com.google.errorprone.matchers.method.MethodMatchers;
 import com.google.errorprone.util.ASTHelpers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodTree;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MatcherUtils {
@@ -23,30 +17,33 @@ public class MatcherUtils {
   }
 
   private static final String CACHE = "cache";
-  private static final String COMPOSE = "compose";
-  private static final ImmutableList<Class> RX2_CLASSES =
+  private static final ImmutableList<String> RX2_CLASSES =
       ImmutableList.of(
-          Observable.class, Single.class, Completable.class, Maybe.class, Flowable.class);
+          "io.reactivex.Observable",
+          "io.reactivex.Single",
+          "io.reactivex.Completable",
+          "io.reactivex.Maybe",
+          "io.reactivex.Flowable");
 
-  private static final ImmutableList<Class> RX_CLASSES =
+  private static final ImmutableList<String> RX_CLASSES =
       ImmutableList.of(
-          rx.Observable.class,
-          rx.Single.class,
-          rx.Completable.class,
-          Observable.class,
-          Single.class,
-          Completable.class,
-          Maybe.class,
-          Flowable.class);
+          "rx.Observable",
+          "rx.Single",
+          "rx.Completable",
+          "io.reactivex.Observable",
+          "io.reactivex.Single",
+          "io.reactivex.Completable",
+          "io.reactivex.Maybe",
+          "io.reactivex.Flowable");
 
   private static final String SUBSCRIBE = "subscribe";
   private static final String SUBSCRIBE_WITH = "subscribeWith";
 
   private static Matcher<ExpressionTree> generateMatcherForSameMethodAndMultipleClasses(
-      List<Class> classes, String method) {
+      List<String> classes, String method) {
     List<MethodMatchers.MethodNameMatcher> matchers = new ArrayList<>();
-    for (Class aClass : classes) {
-      matchers.add(Matchers.instanceMethod().onExactClass(aClass.getName()).named(method));
+    for (String aClass : classes) {
+      matchers.add(Matchers.instanceMethod().onExactClass(aClass).named(method));
     }
     return Matchers.anyOf(matchers);
   }
@@ -61,10 +58,6 @@ public class MatcherUtils {
 
   public static Matcher<ExpressionTree> cache() {
     return generateMatcherForSameMethodAndMultipleClasses(RX_CLASSES, CACHE);
-  }
-
-  public static Matcher<ExpressionTree> composeFor(Class<?>... classes) {
-    return generateMatcherForSameMethodAndMultipleClasses(Arrays.asList(classes), COMPOSE);
   }
 
   public static boolean isEnclosingMethodConstructor(VisitorState state) {

@@ -1,8 +1,5 @@
 package com.rx.errorprone.rx1;
 
-import static com.google.errorprone.BugPattern.Category.JDK;
-import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
-
 import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -11,7 +8,9 @@ import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
-import rx.Observable;
+
+import static com.google.errorprone.BugPattern.Category.JDK;
+import static com.google.errorprone.BugPattern.SeverityLevel.WARNING;
 
 /** @author harshit.bangar@gmail.com (Harshit Bangar) */
 @BugPattern(
@@ -28,9 +27,9 @@ public class OnCreateCheck extends BugChecker implements BugChecker.MethodInvoca
   private static final Matcher<ExpressionTree> ON_CREATE =
       Matchers.anyOf(
           Matchers.staticMethod()
-              .onClass(Observable.class.getName())
+              .onClass("rx.Observable")
               .withSignature("<T>create(rx.Observable.OnSubscribe<T>)"),
-          Matchers.staticMethod().onClass(Observable.class.getName()).named("unsafeCreate"));
+          Matchers.staticMethod().onClass("rx.Observable").named("unsafeCreate"));
 
   @Override
   public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
