@@ -1,6 +1,25 @@
 # Rx-error-prone: Catch common Rx-Java errors at compile time.
 
-It is a set of checks for RxJava code. Currently, there are following checks:
+It is a set of checks for RxJava code. The code below 
+will emit the value on `computation` and not the `main` thread like one might think.
+
+```java
+public class SampleVerifier {
+  public static void main(String[] args) {
+    Observable observable = Observable.just(1).observeOn(Schedulers.io()).delay(1, TimeUnit.SECONDS);
+  }
+}
+```
+
+```
+$ ./gradlew clean :sample:build
+> Task :sample:compileJava FAILED
+/Users/harshitbangar/Desktop/RIBs/rx/sample/src/main/java/SampleVerifier.java:7: error: [DefaultSchedulerCheck] Using a default scheduler
+    Observable observable = Observable.just(1).observeOn(Schedulers.io()).delay(1, TimeUnit.SECONDS);
+                                                                               ^
+    (see https://bitbucket.org/littlerobots/rxlint/)
+1 error
+```
 
 ## How to use
 Just add to your `build.gradle`
@@ -30,6 +49,8 @@ The list of checks
 5. SubscribeOnErrorMissingCheck
 6. SubscriptionInConstructorCheck
 ```
+
+
 ### SubscribeOnErrorMissingCheck
 Check if the subscriber is handling the `onError()` callback. 
 
