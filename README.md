@@ -2,6 +2,34 @@
 
 It is a set of checks for RxJava code. Currently, there are following checks:
 
+## How to use
+Just add to your `build.gradle`
+```gradle
+apt "com.github.bangarharshit:rxbase:0.0.3"
+```
+
+By default all the checks are enabled. To disable check for code/unit-tests use the snippet below.
+```gradle 
+tasks.withType(JavaCompile) {
+    if (!name.toLowerCase().contains("test")) {
+        // For actual code.
+        options.compilerArgs += ["-Xep:DefaultSchedulerCheck:OFF"]
+    } else {
+        // For unit tests.
+        options.compilerArgs += [ '-Xep:DefaultSchedulerCheck:OFF', '-Xep:DanglingSubscriptionCheck:OFF']
+    }
+}
+```
+
+The list of checks
+```gradle
+1. DefaultSchedulerCheck
+2. DanglingSubscriptionCheck
+3. OnCreateCheck (for Rx1 create methods without backpressure)
+4. CacheCheck
+5. SubscribeOnErrorMissingCheck
+6. SubscriptionInConstructorCheck
+```
 ### SubscribeOnErrorMissingCheck
 Check if the subscriber is handling the `onError()` callback. 
 

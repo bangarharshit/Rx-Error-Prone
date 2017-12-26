@@ -18,5 +18,12 @@ dependencies {
 }
 
 tasks.withType(JavaCompile) {
-    options.compilerArgs += [ '-Xep:CacheCheck:ERROR']
+    if (!name.toLowerCase().contains("test")) {
+        // For actual code.
+        options.compilerArgs += ["-Xep:DefaultSchedulerCheck:OFF"]
+    } else {
+        // For unit tests.
+        options.compilerArgs += [ '-Xep:DefaultSchedulerCheck:OFF', '-Xep:DanglingSubscriptionCheck:OFF']
+    }
+
 }
