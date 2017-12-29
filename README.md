@@ -22,7 +22,7 @@ $ ./gradlew clean :sample:build
 ```
 
 ## How to use
-Just add to your `build.gradle`
+Follow the setup instruction in the [gradle error-prone repo](https://github.com/tbroyer/gradle-errorprone-plugin) and just add to your `build.gradle`
 ```gradle
 apt "com.github.bangarharshit:rxbase:0.0.3"
 ```
@@ -100,4 +100,40 @@ Use any of the other overloaded `create` methods or `just/fromCallable` any othe
 
 Error-prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since IntelliJ flags all the lint/error-prone errors, so it fails earlier.
 
- 
+## Contributing
+Feel free to help with issues, and PR.
+Go through the issues with tag `help wanted` and just send a PR. Comment on the issue that you are interested 
+to avoid duplication.
+
+Tutorials:
+1. [How to write a new check](https://github.com/uber/NullAway)
+
+Google code style is automatically applied as a part of git hook so no explicit steps are required.
+
+## Acknowledgement
+[Uber/Nullaway](https://github.com/uber/NullAway) for steps related to publishing.
+
+## License
+```
+MIT License
+
+Copyright (c) 2017 bangarharshit
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ ```
