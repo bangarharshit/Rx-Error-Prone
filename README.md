@@ -93,12 +93,7 @@ for more details.
 Use any of the other overloaded `create` methods or `just/fromCallable` any other generator.
 
 ## Rxlint
-[Rxlint](https://bitbucket.org/littlerobots/rxlint) is a great tool but has a few limitations:
-
-1. It is specific to Android.
-2. It is a separate tool and not the part of your build tool chain. 
-
-Error-prone is integrated into the compilation chain and so it helps you [fail early](https://artemzin.com/blog/android-development-culture-the-document-qualitymatters/). For some this may not be an issue since IntelliJ flags all the lint/error-prone errors, so it fails earlier.
+[Rxlint](https://bitbucket.org/littlerobots/rxlint) is a similar tool and can be used to detect these errors.
 
 ## Contributing
 Feel free to help with issues, and PR.
