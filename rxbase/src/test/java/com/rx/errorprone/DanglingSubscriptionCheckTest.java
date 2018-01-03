@@ -20,7 +20,11 @@ public class DanglingSubscriptionCheckTest {
   public void setup() {
     compilationTestHelper =
         CompilationTestHelper.newInstance(DanglingSubscriptionCheck.class, getClass());
-    compilationTestHelper.setArgs(Arrays.asList("-d", temporaryFolder.getRoot().getAbsolutePath()));
+    compilationTestHelper.setArgs(
+        Arrays.asList(
+            "-d",
+            temporaryFolder.getRoot().getAbsolutePath(),
+            "-XepOpt:LifeCycleClasses" + "=com.rx.errorprone.ComponentWithLifeCycle"));
   }
 
   @Test
@@ -31,5 +35,10 @@ public class DanglingSubscriptionCheckTest {
   @Test
   public void testNegativeCases() {
     compilationTestHelper.addSourceFile("DanglingSubscriptionNegativeCases.java").doTest();
+  }
+
+  @Test
+  public void testNegativeCases2() {
+    compilationTestHelper.addSourceFile("DanglingSubscriptionNegativeCases2.java").doTest();
   }
 }

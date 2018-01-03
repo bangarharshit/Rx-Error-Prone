@@ -1,5 +1,6 @@
 package com.rx.errorprone.testdata;
 
+import com.rx.errorprone.ComponentWithLifeCycle;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -7,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.DisposableObserver;
 
-public class DanglingSubscriptionPositiveCases {
+public class DanglingSubscriptionPositiveCases extends ComponentWithLifeCycle {
 
   public void testSubscribeObservable() {
     // BUG: Diagnostic contains: Subscription should be assigned to a disposable.

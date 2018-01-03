@@ -46,7 +46,8 @@ public class SubscribeOnErrorMissingCheck extends BugChecker
         Type consumerType =
             Objects.requireNonNull(state.getTypeFromString("io.reactivex.functions.Consumer"));
         // For completable.
-        Type actionType = Objects.requireNonNull(state.getTypeFromString("io.reactivex.functions.Action"));
+        Type actionType =
+            Objects.requireNonNull(state.getTypeFromString("io.reactivex.functions.Action"));
         if (ASTHelpers.isSubtype(argType, consumerType, state)
             || ASTHelpers.isSubtype(argType, actionType, state)) {
           return describeMatch(tree);

@@ -16,6 +16,21 @@
 
 package com.rx.errorprone.utils;
 
+import static com.google.errorprone.matchers.Matchers.allOf;
+import static com.google.errorprone.matchers.Matchers.anyOf;
+import static com.google.errorprone.matchers.Matchers.enclosingNode;
+import static com.google.errorprone.matchers.Matchers.expressionStatement;
+import static com.google.errorprone.matchers.Matchers.isLastStatementInBlock;
+import static com.google.errorprone.matchers.Matchers.kindIs;
+import static com.google.errorprone.matchers.Matchers.methodSelect;
+import static com.google.errorprone.matchers.Matchers.nextStatement;
+import static com.google.errorprone.matchers.Matchers.not;
+import static com.google.errorprone.matchers.Matchers.parentNode;
+import static com.google.errorprone.matchers.Matchers.previousStatement;
+import static com.google.errorprone.matchers.Matchers.toType;
+import static com.google.errorprone.matchers.method.MethodMatchers.instanceMethod;
+import static com.google.errorprone.matchers.method.MethodMatchers.staticMethod;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
@@ -44,24 +59,9 @@ import com.sun.tools.javac.tree.JCTree.JCMemberReference;
 import com.sun.tools.javac.tree.JCTree.JCMethodInvocation;
 import javax.lang.model.type.TypeKind;
 
-import static com.google.errorprone.matchers.Matchers.allOf;
-import static com.google.errorprone.matchers.Matchers.anyOf;
-import static com.google.errorprone.matchers.Matchers.enclosingNode;
-import static com.google.errorprone.matchers.Matchers.expressionStatement;
-import static com.google.errorprone.matchers.Matchers.isLastStatementInBlock;
-import static com.google.errorprone.matchers.Matchers.kindIs;
-import static com.google.errorprone.matchers.Matchers.methodSelect;
-import static com.google.errorprone.matchers.Matchers.nextStatement;
-import static com.google.errorprone.matchers.Matchers.not;
-import static com.google.errorprone.matchers.Matchers.parentNode;
-import static com.google.errorprone.matchers.Matchers.previousStatement;
-import static com.google.errorprone.matchers.Matchers.toType;
-import static com.google.errorprone.matchers.method.MethodMatchers.instanceMethod;
-import static com.google.errorprone.matchers.method.MethodMatchers.staticMethod;
-
 /**
- * Copied from Error prone source code for code reuse.
- * An abstract base class to match method invocations in which the return value is not used.
+ * Copied from Error prone source code for code reuse. An abstract base class to match method
+ * invocations in which the return value is not used.
  *
  * @author eaftan@google.com (Eddie Aftandilian)
  */
@@ -260,9 +260,7 @@ public abstract class AbstractReturnValueIgnored extends BugChecker
               isLastStatementInBlock(),
               previousStatement(
                   expressionStatement(
-                      anyOf(
-                          instanceMethod().onExactClass("org.junit.rules.ExpectedException")
-                          )))),
+                      anyOf(instanceMethod().onExactClass("org.junit.rules.ExpectedException"))))),
           // try { me(); fail(); } catch (Throwable t) {}
           allOf(enclosingNode(kindIs(Kind.TRY)), nextStatement(expressionStatement(FAIL_METHOD))),
           // assertThrows(Throwable.class, () => { me(); })
